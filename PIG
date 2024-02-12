@@ -1,0 +1,42 @@
+lines = LOAD 'input.txt' AS (line:chararray);  -- Load your input file
+words = FOREACH lines GENERATE FLATTEN(TOKENIZE(line)) AS word;
+grouped = GROUP words BY word; 
+wordcount = FOREACH grouped GENERATE group, COUNT(words); 
+DUMP wordcount; 
+
+
+
+
+pig -x local 
+Directly in Grunt:  Type (or paste) the Pig statements line by line into the Grunt shell.
+
+Using exec:
+
+Bash
+grunt> exec word_count.pig  
+
+
+HDFS
+Steps
+
+Upload Input File to HDFS:  Start by putting your input data file (input.txt) into HDFS:
+
+Bash
+hadoop fs -copyFromLocal input.txt /path/on/hdfs/
+Use code with caution. Learn more
+Upload Pig Script to HDFS:  Transfer your Pig program to HDFS as well:
+
+Bash
+hadoop fs -copyFromLocal word_count.pig  /path/on/hdfs/
+Use code with caution. Learn more
+Execute the Pig Script in MapReduce Mode:
+
+Bash
+pig -x mapreduce /path/on/hdfs/word_count.pig 
+Use code with caution. Learn more
+Retrieve Results from HDFS:  Once the Pig job completes, you'll need to fetch your word count results from HDFS to your local machine:
+
+Bash
+hadoop fs -copyToLocal /path/to/output/on/hdfs /local/destination/
+Use code with caution. Learn more
+(Remember to replace '/path/to/output/on/hdfs' with the location specified by the STORE command in your Pig script)
