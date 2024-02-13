@@ -1,0 +1,24 @@
+[Yesterday 9:34 PM] BOBBALA SAKETH - 210968188
+hadoop jar '/home/hdoop/hadoop/share/hadoop/tools/lib/hadoop-streaming-3.3.6.jar' \
+
+-files /home/hdoop/dse070/week2/q1/mapper.py,/home/hdoop/dse070/week2/q1/reducer.py \
+
+-mapper 'python3 mapper.py' \
+
+-reducer 'python3 reducer.py' \
+
+-input /070/input1.txt \
+
+-output /070/outq1
+[Yesterday 9:34 PM] BOBBALA SAKETH - 210968188
+hadoop jar '/home/hdoop/hadoop/share/hadoop/tools/lib/hadoop-streaming-3.3.6.jar' \
+
+-files /home/hdoop/dse070/week2/q1/mapper.py#mapper.py,/home/hdoop/dse070/week2/q1/reducer.py#reducer.py \
+
+-mapper 'python3 mapper.py' \
+
+-reducer 'python3 reducer.py' \
+
+-input /070/input1.txt \
+
+-output /070/outq1
