@@ -1,3 +1,4 @@
 val words = sentences.flatMap(_.split("[,~]"))
 https://github.com/dhzdhd/DSE
 https://www.youtube.com/watch?v=XULqsOjneYg
+val words = sentences.flatMap(_.split("[,~\\|]"))
