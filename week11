@@ -1,0 +1,16 @@
+-- Load the data into a Pig relation called 'emails'
+emails = LOAD 'path/to/input/dataset' USING PigStorage(',')
+       AS (user_id: chararray, from: chararray, to: bag{t: tuple(email: chararray)});
+
+-- Flatten the 'to' bag to associate each 'from' with every 'to' email
+flattened_emails = FOREACH emails GENERATE from, FLATTEN(to);
+
+-- Group by the 'from' field to get the list of recipients for each sender
+grouped_emails = GROUP flattened_emails BY from;
+
+-- For each group, concatenate the list of recipients into a single string
+-- Using the BagToString UDF
+result = FOREACH grouped_emails GENERATE group AS from, BagToString(flattened_emails.to, ',') AS recipients;
+
+-- Store the result in a file
+STORE result INTO 'path/to/output/dataset' USING PigStorage(',');
